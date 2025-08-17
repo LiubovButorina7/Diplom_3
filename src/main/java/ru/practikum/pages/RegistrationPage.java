@@ -17,6 +17,7 @@ public class RegistrationPage {
     private final By passwordField = By.xpath(".//label[text() = 'Пароль']/parent::*/input");
     private final By registerButton = By.cssSelector(".button_button__33qZ0");
     private final By passwordFieldError = By.xpath(".//p[text() = 'Некорректный пароль']");
+    private final By enterButton = By.cssSelector(".Auth_link__1fOlj");
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -62,5 +63,10 @@ public class RegistrationPage {
         } catch (Exception e) {
             throw new RuntimeException("Элемент с сообщением об ошибке в поле 'Пароль' не найден: " + e.getMessage());
         }
+    }
+
+    @Step("Click on Enter Button")
+    public void clickEnterButton() {
+        driver.findElement(enterButton).click();
     }
 }

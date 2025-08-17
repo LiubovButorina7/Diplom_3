@@ -53,4 +53,17 @@ public class EnterSiteTests {
         entrancePageObj.enterRegistrationData(email, password);
         mainPageObj.checkMainPageIsDisplayed();
     }
+
+    @Test
+    @DisplayName("Enter site on click Enter button in Registration Page")
+    @Description("Test successful site enter via Enter button in Registration Page")
+    public void enterSiteOnEnterButtonInRegistrationPageTest() throws InterruptedException {
+        RegistrationPage registrationPageObj = new RegistrationPage(driver);
+        registrationPageObj.openRegistrationPage();
+        registrationPageObj.clickEnterButton();
+        EntrancePage entrancePageObj = new EntrancePage(driver);
+        entrancePageObj.enterRegistrationData(email, password);
+        MainPageConstructor mainPageObj = new MainPageConstructor(driver);
+        mainPageObj.checkMainPageIsDisplayed();
+    }
 }
