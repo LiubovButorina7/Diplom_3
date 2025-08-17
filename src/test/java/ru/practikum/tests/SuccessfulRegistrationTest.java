@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import ru.practikum.pages.EntrancePage;
-import ru.practikum.pages.MainPageConstructor;
 import ru.practikum.pages.RegistrationPage;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -42,13 +41,10 @@ public class SuccessfulRegistrationTest {
     public void registerUserSuccessfullyTest() throws InterruptedException {
         WebDriver driver = driverFactory.getDriver();
 
-        MainPageConstructor mainPageObj = new MainPageConstructor(driver);
-        mainPageObj.openMainPageConstructor();
-        mainPageObj.clickEnterAccountButton();
-        EntrancePage entrancePageObj = new EntrancePage(driver);
-        entrancePageObj.clickRegisterButton();
         RegistrationPage registrationPageObj = new RegistrationPage(driver);
+        registrationPageObj.openRegistrationPage();
         registrationPageObj.enterRegistrationData(userName, email, password);
+        EntrancePage entrancePageObj = new EntrancePage(driver);
         entrancePageObj.checkEnterButtonIsDisplayed();
     }
 }

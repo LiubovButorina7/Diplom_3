@@ -22,6 +22,11 @@ public class RegistrationPage {
         this.driver = driver;
     }
 
+    @Step("Open registration page")
+    public void openRegistrationPage() {
+        driver.get(Constants.RESOURCE_URL_REGISTRATION);
+    }
+
     @Step("Enter value in Name field")
     public void setUserName(String name) {
         driver.findElement(nameField).sendKeys(name);
@@ -42,7 +47,7 @@ public class RegistrationPage {
         driver.findElement(registerButton).click();
     }
 
-    @Step("Accept email, password and name values")
+    @Step("Register a new user")
     public void enterRegistrationData(String name, String email, String password) {
         setUserName(name);
         setUserEmail(email);
