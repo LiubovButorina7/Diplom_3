@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import ru.practikum.pages.RegistrationPage;
+import ru.practikum.pages.RegisterPage;
 
 @RunWith(Parameterized.class)
 public class IncorrectPasswordErrorTest {
@@ -42,9 +42,9 @@ public class IncorrectPasswordErrorTest {
     public void errorMessageOnIncorrectPasswordTest() throws InterruptedException {
         WebDriver driver = driverFactory.getDriver();
 
-        RegistrationPage registrationPageObj = new RegistrationPage(driver);
-        registrationPageObj.openRegistrationPage();
-        registrationPageObj.enterRegistrationData(userName, email, password);
-        registrationPageObj.checkErrorMessageIsDisplayed();
+        RegisterPage registerPageObj = new RegisterPage(driver);
+        registerPageObj.openRegisterPage();
+        registerPageObj.registerUser(userName, email, password);
+        registerPageObj.checkErrorMessageIsDisplayed();
     }
 }

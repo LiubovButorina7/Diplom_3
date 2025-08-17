@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import ru.practikum.pages.EntrancePage;
-import ru.practikum.pages.RegistrationPage;
+import ru.practikum.pages.LoginPage;
+import ru.practikum.pages.RegisterPage;
 import org.apache.commons.lang3.RandomStringUtils;
 
 @RunWith(Parameterized.class)
@@ -41,10 +41,10 @@ public class SuccessfulRegistrationTest {
     public void registerUserSuccessfullyTest() throws InterruptedException {
         WebDriver driver = driverFactory.getDriver();
 
-        RegistrationPage registrationPageObj = new RegistrationPage(driver);
-        registrationPageObj.openRegistrationPage();
-        registrationPageObj.enterRegistrationData(userName, email, password);
-        EntrancePage entrancePageObj = new EntrancePage(driver);
-        entrancePageObj.checkEnterButtonIsDisplayed();
+        RegisterPage registerPageObj = new RegisterPage(driver);
+        registerPageObj.openRegisterPage();
+        registerPageObj.registerUser(userName, email, password);
+        LoginPage loginPageObj = new LoginPage(driver);
+        loginPageObj.checkLoginButtonIsDisplayed();
     }
 }

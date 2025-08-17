@@ -39,10 +39,10 @@ public class DriverFactory extends ExternalResource {
     protected void before() throws Throwable {
         initDriver();
     }
-/*
+
     @Override
     protected void after() {
         driver.quit();
     }
-*/
+
 }

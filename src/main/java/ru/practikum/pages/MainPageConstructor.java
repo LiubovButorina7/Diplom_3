@@ -11,7 +11,7 @@ import java.time.Duration;
 
 public class MainPageConstructor {
     protected final WebDriver driver;
-    private final By enterAccountButton = By.xpath(".//button[text() = 'Войти в аккаунт']");
+    private final By loginAccountButton = By.xpath(".//button[text() = 'Войти в аккаунт']");
     private final By personalAccountButton = By.xpath(".//p[text() = 'Личный Кабинет']");
     private final By sectionBurgers = By.cssSelector(".BurgerIngredients_ingredients__1N8v2");
 
@@ -24,12 +24,12 @@ public class MainPageConstructor {
         driver.get(Constants.RESOURCE_URL);
     }
 
-    @Step("Click on EnterAccount Button")
-    public void clickEnterAccountButton() {
-        driver.findElement(enterAccountButton).click();
+    @Step("Click on LoginAccount Button in Main Page")
+    public void clickLoginAccountButton() {
+        driver.findElement(loginAccountButton).click();
     }
 
-    @Step("Click on PersonalAccount Button")
+    @Step("Click on PersonalAccount Button in Site Heading")
     public void clickPersonalAccountButton() {
         driver.findElement(personalAccountButton).click();
     }
