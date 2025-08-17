@@ -7,6 +7,7 @@ import ru.practikum.util.Constants;
 
 public class MainPageConstructor {
     protected final WebDriver driver;
+    private final By enterAccountButton = By.xpath(".//button[text() = 'Войти в аккаунт']");
     private final By personalAccountButton = By.xpath(".//p[text() = 'Личный Кабинет']");
 
     public MainPageConstructor(WebDriver driver) {
@@ -16,6 +17,11 @@ public class MainPageConstructor {
     @Step("Open main page (constructor)")
     public void openMainPageConstructor() {
         driver.get(Constants.RESOURCE_URL);
+    }
+
+    @Step("Click on EnterAccount Button")
+    public void clickEnterAccountButton() {
+        driver.findElement(enterAccountButton).click();
     }
 
     @Step("Click on PesonalAccount Button")
