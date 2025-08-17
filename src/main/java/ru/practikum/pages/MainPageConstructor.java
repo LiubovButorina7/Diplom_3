@@ -17,10 +17,11 @@ public class MainPageConstructor {
 
     private final By loginAccountButton = By.xpath(".//button[text() = 'Войти в аккаунт']");
     private final By personalAccountButton = By.xpath(".//p[text() = 'Личный Кабинет']");
-    private final By sectionBurgers = By.cssSelector(".BurgerIngredients_ingredients__1N8v2");
+    private final By sectionConstructor = By.cssSelector(".BurgerIngredients_ingredients__1N8v2");
     private final By tabBuns = By.xpath(".//span[text() = 'Булки']/parent::div");
     private final By tabSauces = By.xpath(".//span[text() = 'Соусы']/parent::div");
     private final By tabFillings = By.xpath(".//span[text() = 'Начинки']/parent::div");
+    private final By menu = By.cssSelector(".BurgerIngredients_ingredients__menuContainer__Xu3Mo");
 
     public MainPageConstructor(WebDriver driver) {
         this.driver = driver;
@@ -51,7 +52,7 @@ public class MainPageConstructor {
         driver.findElement(tabSauces).click();
     }
 
-    @Step("Click on Tab Buns in Constructor")
+    @Step("Click on Tab Fillings in Constructor")
     public void clickTabFillings() {
         driver.findElement(tabFillings).click();
     }
@@ -60,6 +61,7 @@ public class MainPageConstructor {
     public void checkIfTabBunsIsActive() {
         WebElement element = driver.findElement(tabBuns);
         String attribute = element.getAttribute("class");
+        System.out.println(attribute);
         assertTrue("Вкладка 'Булки' неактивна", attribute.contains("tab_tab_type_current__2BEPc"));
     }
 
@@ -67,6 +69,7 @@ public class MainPageConstructor {
     public void checkIfTabSaucesIsActive() {
         WebElement element = driver.findElement(tabSauces);
         String attribute = element.getAttribute("class");
+
         assertTrue("Вкладка 'Соусы' неактивна", attribute.contains("tab_tab_type_current__2BEPc"));
     }
 
@@ -81,30 +84,31 @@ public class MainPageConstructor {
     public void waitLoadingConstructor() {
         new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS))
                 .until(ExpectedConditions.and(
-                        ExpectedConditions.elementToBeClickable(sectionBurgers),
-                        ExpectedConditions.visibilityOfElementLocated(sectionBurgers)));
+                        ExpectedConditions.elementToBeClickable(sectionConstructor),
+                        ExpectedConditions.visibilityOfElementLocated(sectionConstructor)));
     }
 
     @Step("Wait until tab Buns will be clickable")
     public void waitLoadingTabBuns() {
         new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS))
-                .until(ExpectedConditions.and(
-                        ExpectedConditions.elementToBeClickable(tabBuns),
-                        ExpectedConditions.visibilityOfElementLocated(tabBuns)));
+                .until(ExpectedConditions.elementToBeClickable(tabBuns));
     }
 
     @Step("Wait until tab Sauces will be clickable")
     public void waitLoadingTabSauces() {
         new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS))
-                .until(ExpectedConditions.and(
-                        ExpectedConditions.elementToBeClickable(tabSauces),
-                        ExpectedConditions.visibilityOfElementLocated(tabSauces)));
+                .until(ExpectedConditions.elementToBeClickable(tabSauces));
+
+    }
+    @Step("Wait until tab Fillings will be clickable")
+    public void waitLoadingTabFillings() {
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS))
+                .until(ExpectedConditions.visibilityOfElementLocated(tabFillings));
     }
 
     @Step("Check is Main Page (Constructor) displayed")
     public void checkMainPageIsDisplayed() {
         try {
-            //new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.visibilityOfElementLocated(sectionBurgers));
             waitLoadingConstructor();
         } catch (Exception e) {
             throw new RuntimeException("Конструктор не найден на странице: " + e.getMessage());

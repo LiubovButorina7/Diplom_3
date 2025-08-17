@@ -6,7 +6,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.practikum.pages.MainPageConstructor;
+
+import java.time.Duration;
 
 public class ConstructorTests {
     @Rule
@@ -24,11 +27,9 @@ public class ConstructorTests {
     public void goToSectionBunsTest() throws InterruptedException {
         MainPageConstructor mainPageObj = new MainPageConstructor(driver);
         mainPageObj.openMainPageConstructor();
-        mainPageObj.waitLoadingConstructor();
-        mainPageObj.waitLoadingTabSauces();
+        new WebDriverWait(driver, Duration.ofSeconds(10));
         mainPageObj.clickTabSauces();
-        mainPageObj.waitLoadingTabBuns();
-        mainPageObj.checkIfTabSaucesIsActive();
+        new WebDriverWait(driver, Duration.ofSeconds(10));
         mainPageObj.clickTabBuns();
         mainPageObj.waitLoadingTabSauces();
         mainPageObj.checkIfTabBunsIsActive();
@@ -36,16 +37,27 @@ public class ConstructorTests {
 
     @Test
     @DisplayName("Go to section 'Sauces' in Constructor")
-    @Description("Test go to section 'Sauces' via click on tab Buns")
+    @Description("Test go to section 'Sauces' via click on tab Sauces")
     public void goToSectionSaucesTest() throws InterruptedException {
         MainPageConstructor mainPageObj = new MainPageConstructor(driver);
         mainPageObj.openMainPageConstructor();
-        mainPageObj.waitLoadingConstructor();
-        mainPageObj.checkIfTabBunsIsActive();
-        mainPageObj.waitLoadingTabSauces();
+        new WebDriverWait(driver, Duration.ofSeconds(10));
         mainPageObj.clickTabSauces();
         mainPageObj.waitLoadingTabBuns();
         mainPageObj.checkIfTabSaucesIsActive();
+    }
+
+    @Test
+    @DisplayName("Go to section 'Fillings' in Constructor")
+    @Description("Test go to section 'Fillings' via click on tab Sauces")
+    public void goToSectionFillingsTest() throws InterruptedException {
+        MainPageConstructor mainPageObj = new MainPageConstructor(driver);
+        mainPageObj.openMainPageConstructor();
+        mainPageObj.waitLoadingTabFillings();
+        new WebDriverWait(driver, Duration.ofSeconds(10));
+        mainPageObj.clickTabFillings();
+        mainPageObj.waitLoadingTabBuns();
+        mainPageObj.checkIfTabFillingsIsActive();
     }
 
 }
