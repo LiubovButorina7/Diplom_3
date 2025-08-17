@@ -29,7 +29,7 @@ public class MainPageConstructor {
         driver.findElement(enterAccountButton).click();
     }
 
-    @Step("Click on PesonalAccount Button")
+    @Step("Click on PersonalAccount Button")
     public void clickPersonalAccountButton() {
         driver.findElement(personalAccountButton).click();
     }
@@ -39,7 +39,7 @@ public class MainPageConstructor {
         try {
             new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.visibilityOfElementLocated(sectionBurgers));
         } catch (Exception e) {
-            throw new RuntimeException("Конструктор бургеров не найден на странице: " + e.getMessage());
+            throw new RuntimeException("Конструктор не найден на странице: " + e.getMessage());
         }
     }
 }
