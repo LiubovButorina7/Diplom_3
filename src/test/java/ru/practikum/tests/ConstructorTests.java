@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.practikum.pages.MainPageConstructor;
+import ru.practikum.util.Constants;
 
 import java.time.Duration;
 
@@ -27,12 +28,12 @@ public class ConstructorTests {
     public void goToSectionBunsTest() throws InterruptedException {
         MainPageConstructor mainPageObj = new MainPageConstructor(driver);
         mainPageObj.openMainPageConstructor();
-        new WebDriverWait(driver, Duration.ofSeconds(10));
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS));
         mainPageObj.clickTabSauces();
-        new WebDriverWait(driver, Duration.ofSeconds(10));
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS));
         mainPageObj.clickTabBuns();
         mainPageObj.waitLoadingTabSauces();
-        mainPageObj.checkIfTabBunsIsActive();
+        mainPageObj.checkIfSectionBunsIsActive();
     }
 
     @Test
@@ -41,10 +42,10 @@ public class ConstructorTests {
     public void goToSectionSaucesTest() throws InterruptedException {
         MainPageConstructor mainPageObj = new MainPageConstructor(driver);
         mainPageObj.openMainPageConstructor();
-        new WebDriverWait(driver, Duration.ofSeconds(10));
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS));
         mainPageObj.clickTabSauces();
         mainPageObj.waitLoadingTabBuns();
-        mainPageObj.checkIfTabSaucesIsActive();
+        mainPageObj.checkIfSectionSaucesIsActive();
     }
 
     @Test
@@ -53,11 +54,10 @@ public class ConstructorTests {
     public void goToSectionFillingsTest() throws InterruptedException {
         MainPageConstructor mainPageObj = new MainPageConstructor(driver);
         mainPageObj.openMainPageConstructor();
-        mainPageObj.waitLoadingTabFillings();
-        new WebDriverWait(driver, Duration.ofSeconds(10));
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS));
         mainPageObj.clickTabFillings();
         mainPageObj.waitLoadingTabBuns();
-        mainPageObj.checkIfTabFillingsIsActive();
+        mainPageObj.checkIfSectionFillingsIsActive();
     }
 
 }
