@@ -15,7 +15,7 @@ import java.time.Duration;
 public class ConstructorTests {
     @Rule
     public DriverFactory driverFactory = new DriverFactory();
-    WebDriver driver;
+    private WebDriver driver;
 
     @Before
     public void setUp() {
