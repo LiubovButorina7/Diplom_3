@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import ru.practikum.pages.RegisterPage;
 
 @RunWith(Parameterized.class)
-public class IncorrectPasswordErrorTests {
+public class IncorrectPasswordErrorTests extends BaseTest{
     @Rule
     public DriverFactory driverFactory = new DriverFactory();
 

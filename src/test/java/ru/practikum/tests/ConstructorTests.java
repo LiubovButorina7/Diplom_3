@@ -20,6 +20,7 @@ public class ConstructorTests {
     @Before
     public void setUp() {
         driver = driverFactory.getDriver();
+
     }
 
     @Test

@@ -57,6 +57,11 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/test/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <!-- настройка плагина maven-surefire-plugin -->
