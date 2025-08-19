@@ -9,9 +9,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.practikum.pages.MainPageConstructor;
 import ru.practikum.util.Constants;
-
 import java.time.Duration;
 
+/*
+Мне не удалось добиться стабильного результата в данном сегменте проверок при единовременном
+запуске тестов (mvn clean test). Если запускать тесты по отдельности - всё проходит, потратила
+большое кол-во времени на разные варианты комбинаций, но эту проблему так и не смогла разрешить.
+ */
 public class ConstructorTests {
     @Rule
     public DriverFactory driverFactory = new DriverFactory();

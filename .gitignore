@@ -40,3 +40,4 @@ build/
 *.class
 *.idea
 .allure
+/resources/yandexdriver.exe
