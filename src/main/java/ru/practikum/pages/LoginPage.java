@@ -10,7 +10,6 @@ import java.time.Duration;
 
 public class LoginPage {
     protected final WebDriver driver;
-    private final By registerButton = By.xpath(".//a[text() = 'Зарегистрироваться']");
     private final By loginButton = By.xpath(".//button[text() = 'Войти']");
     private final By emailField = By.xpath(".//label[text() = 'Email']/parent::*/input");
     private final By passwordField = By.xpath(".//label[text() = 'Пароль']/parent::*/input");
@@ -23,11 +22,6 @@ public class LoginPage {
     @Step("Open login page")
     public void openLoginPage() {
         driver.get(Constants.RESOURCE_URL_LOGIN);
-    }
-
-    @Step("Click on Register Button in Login Page")
-    public void clickRegisterButton() {
-        driver.findElement(registerButton).click();
     }
 
     @Step("Check is Login Button displayed in Login Page")

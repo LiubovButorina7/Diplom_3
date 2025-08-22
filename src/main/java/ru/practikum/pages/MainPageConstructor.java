@@ -10,6 +10,7 @@ import ru.practikum.util.Constants;
 
 import java.time.Duration;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class MainPageConstructor {
@@ -17,9 +18,7 @@ public class MainPageConstructor {
 
     private final By loginAccountButton = By.xpath(".//button[text() = 'Войти в аккаунт']");
     private final By personalAccountButton = By.xpath(".//p[text() = 'Личный Кабинет']");
-    //private final By sectionConstructor = By.cssSelector(".BurgerIngredients_ingredients__1N8v2");
     private final By sectionConstructor = By.cssSelector(".BurgerIngredients_ingredients__menuContainer__Xu3Mo");
-    private final By titleBuns = By.xpath(".//h2[text() = 'Булки']");
     private final By tabBuns = By.xpath(".//span[text() = 'Булки']/parent::div");
     private final By tabSauces = By.xpath(".//span[text() = 'Соусы']/parent::div");
     private final By tabFillings = By.xpath(".//span[text() = 'Начинки']/parent::div");
@@ -79,12 +78,10 @@ public class MainPageConstructor {
         assertTrue("Вкладка 'Начинки' неактивна", attribute.contains("tab_tab_type_current__2BEPc"));
     }
 
-    @Step("Wait until Constructor will be loaded")
-    public void waitLoadingConstructor() {
+    @Step("Wait until Main Page will be loaded")
+    public void waitLoadingMainPage() {
         new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS))
-                .until(ExpectedConditions.and(
-                        ExpectedConditions.elementToBeClickable(sectionConstructor),
-                        ExpectedConditions.visibilityOfElementLocated(sectionConstructor)));
+                .until(ExpectedConditions.urlToBe(Constants.RESOURCE_URL));
     }
 
     @Step("Wait until tab Buns will be active")
@@ -102,16 +99,13 @@ public class MainPageConstructor {
         new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.attributeContains(tabFillings, "class", "tab_tab_type_current__2BEPc"));
     }
 
-    @Step("Check is Main Page (Constructor) displayed")
+    @Step("Check if Main Page is displayed")
     public void checkMainPageIsDisplayed() {
-        try {
-            waitLoadingConstructor();
-        } catch (Exception e) {
-            throw new RuntimeException("Конструктор не найден на странице: " + e.getMessage());
-        }
+        waitLoadingMainPage();
+        assertEquals("Ожидаемый URL главной страницы не совпадает с текущим", Constants.RESOURCE_URL, driver.getCurrentUrl());
     }
 
-    @Step("Wait until section Constructor will be clickable")
+    @Step("Wait until section Constructor will be visible & clickable")
     public void waitLoadingSectionConstructor() {
         new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(sectionConstructor),ExpectedConditions.elementToBeClickable(sectionConstructor)));
     }
