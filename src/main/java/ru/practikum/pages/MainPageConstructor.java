@@ -17,7 +17,9 @@ public class MainPageConstructor {
 
     private final By loginAccountButton = By.xpath(".//button[text() = 'Войти в аккаунт']");
     private final By personalAccountButton = By.xpath(".//p[text() = 'Личный Кабинет']");
-    private final By sectionConstructor = By.cssSelector(".BurgerIngredients_ingredients__1N8v2");
+    //private final By sectionConstructor = By.cssSelector(".BurgerIngredients_ingredients__1N8v2");
+    private final By sectionConstructor = By.cssSelector(".BurgerIngredients_ingredients__menuContainer__Xu3Mo");
+    private final By titleBuns = By.xpath(".//h2[text() = 'Булки']");
     private final By tabBuns = By.xpath(".//span[text() = 'Булки']/parent::div");
     private final By tabSauces = By.xpath(".//span[text() = 'Соусы']/parent::div");
     private final By tabFillings = By.xpath(".//span[text() = 'Начинки']/parent::div");
@@ -67,7 +69,6 @@ public class MainPageConstructor {
     public void checkIfSectionSaucesIsActive() {
         WebElement element = driver.findElement(tabSauces);
         String attribute = element.getAttribute("class");
-
         assertTrue("Вкладка 'Соусы' неактивна", attribute.contains("tab_tab_type_current__2BEPc"));
     }
 
@@ -86,14 +87,19 @@ public class MainPageConstructor {
                         ExpectedConditions.visibilityOfElementLocated(sectionConstructor)));
     }
 
-    @Step("Wait until tab Buns will be clickable")
+    @Step("Wait until tab Buns will be active")
     public void waitLoadingTabBuns() {
-        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(tabBuns),ExpectedConditions.elementToBeClickable(tabBuns)));
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.attributeContains(tabBuns, "class","tab_tab_type_current__2BEPc"));
     }
 
-    @Step("Wait until tab Sauces will be clickable")
+    @Step("Wait until tab Sauces will be active")
     public void waitLoadingTabSauces() {
-        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(tabSauces),ExpectedConditions.elementToBeClickable(tabSauces)));
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.attributeContains(tabSauces, "class", "tab_tab_type_current__2BEPc"));
+    }
+
+    @Step("Wait until tab Fillings will be active")
+    public void waitLoadingTabFillings() {
+        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.attributeContains(tabFillings, "class", "tab_tab_type_current__2BEPc"));
     }
 
     @Step("Check is Main Page (Constructor) displayed")
@@ -105,4 +111,8 @@ public class MainPageConstructor {
         }
     }
 
+    @Step("Wait until section Constructor will be clickable")
+    public void waitLoadingSectionConstructor() {
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.and(ExpectedConditions.visibilityOfElementLocated(sectionConstructor),ExpectedConditions.elementToBeClickable(sectionConstructor)));
+    }
 }

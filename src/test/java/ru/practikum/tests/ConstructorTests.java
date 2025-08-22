@@ -6,38 +6,30 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.practikum.pages.MainPageConstructor;
-import ru.practikum.util.Constants;
-import java.time.Duration;
 
-/*
-Мне не удалось добиться стабильного результата в данном сегменте проверок при единовременном
-запуске тестов (mvn clean test). Если запускать тесты по отдельности - всё проходит, потратила
-большое кол-во времени на разные варианты комбинаций, но эту проблему так и не смогла разрешить.
- */
 public class ConstructorTests {
     @Rule
     public DriverFactory driverFactory = new DriverFactory();
     private WebDriver driver;
+    MainPageConstructor mainPageObj;
 
     @Before
     public void setUp() {
         driver = driverFactory.getDriver();
-
+        mainPageObj = new MainPageConstructor(driver);
+        mainPageObj.openMainPageConstructor();
+        mainPageObj.waitLoadingSectionConstructor();
     }
 
     @Test
     @DisplayName("Go to section 'Buns' in Constructor")
     @Description("Test go to section 'Buns' via click on tab Buns")
     public void goToSectionBunsTest() throws InterruptedException {
-        MainPageConstructor mainPageObj = new MainPageConstructor(driver);
-        mainPageObj.openMainPageConstructor();
-        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS));
         mainPageObj.clickTabSauces();
-        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS));
-        mainPageObj.clickTabBuns();
         mainPageObj.waitLoadingTabSauces();
+        mainPageObj.clickTabBuns();
+        mainPageObj.waitLoadingTabBuns();
         mainPageObj.checkIfSectionBunsIsActive();
     }
 
@@ -45,11 +37,8 @@ public class ConstructorTests {
     @DisplayName("Go to section 'Sauces' in Constructor")
     @Description("Test go to section 'Sauces' via click on tab Sauces")
     public void goToSectionSaucesTest() throws InterruptedException {
-        MainPageConstructor mainPageObj = new MainPageConstructor(driver);
-        mainPageObj.openMainPageConstructor();
-        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS));
         mainPageObj.clickTabSauces();
-        mainPageObj.waitLoadingTabBuns();
+        mainPageObj.waitLoadingTabSauces();
         mainPageObj.checkIfSectionSaucesIsActive();
     }
 
@@ -57,12 +46,8 @@ public class ConstructorTests {
     @DisplayName("Go to section 'Fillings' in Constructor")
     @Description("Test go to section 'Fillings' via click on tab Sauces")
     public void goToSectionFillingsTest() throws InterruptedException {
-        MainPageConstructor mainPageObj = new MainPageConstructor(driver);
-        mainPageObj.openMainPageConstructor();
-        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS));
         mainPageObj.clickTabFillings();
-        mainPageObj.waitLoadingTabBuns();
+        mainPageObj.waitLoadingTabFillings();
         mainPageObj.checkIfSectionFillingsIsActive();
     }
-
 }

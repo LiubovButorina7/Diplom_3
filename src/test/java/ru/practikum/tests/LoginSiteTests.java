@@ -1,7 +1,6 @@
 package ru.practikum.tests;
 
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -10,30 +9,30 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import ru.practikum.api.UserApiSteps;
 import ru.practikum.models.User;
 import ru.practikum.pages.ForgotPasswordPage;
 import ru.practikum.pages.LoginPage;
 import ru.practikum.pages.MainPageConstructor;
 import ru.practikum.pages.RegisterPage;
-import ru.practikum.util.Constants;
-
-import static io.restassured.RestAssured.given;
 
 public class LoginSiteTests extends BaseTest{
     @Rule
     public DriverFactory driverFactory = new DriverFactory();
     private WebDriver driver;
+    UserApiSteps apiSteps;
 
     private User user;
 
     @Before
     public void setUp() {
         driver = driverFactory.getDriver();
+        apiSteps = new UserApiSteps();
 
         user = new User();
-        setRegistrationData(RandomStringUtils.randomAlphanumeric(8), RandomStringUtils.randomAlphanumeric(8), RandomStringUtils.randomAlphabetic(6));
-        ValidatableResponse response = registerUser(user);
-        setAccessToken(response);
+        apiSteps.setRegistrationDataApi(user, RandomStringUtils.randomAlphanumeric(8), RandomStringUtils.randomAlphanumeric(8), RandomStringUtils.randomAlphabetic(6));
+        ValidatableResponse response = apiSteps.registerUserApi(user);
+        apiSteps.setAccessTokenApi(user, response);
     }
 
     @Test
@@ -87,42 +86,10 @@ public class LoginSiteTests extends BaseTest{
         mainPageObj.checkMainPageIsDisplayed();
     }
 
-    @Step("Register a new user ")
-    public ValidatableResponse registerUser(User user) {
-        return given()
-                .body(user)
-                .when()
-                .post(Constants.REGISTER_USER)
-                .then();
-    }
-
-    @Step("Delete a user")
-    public void deleteUser(User user) {
-        given()
-                .header("Authorization", user.getAccessToken())
-                .when()
-                .post(Constants.DELETE_USER)
-                .then();
-    }
-
-    @Step("Set registration data")
-    public void setRegistrationData(String email, String password, String name) {
-        user.setEmail(email + "@test.ru");
-        user.setPassword(password);
-        user.setName(name);
-    }
-
-    @Step("Set user access token")
-    public void setAccessToken(ValidatableResponse response) {
-        String userAccessToken = response.extract().body().path("accessToken");
-        user.setAccessToken(userAccessToken);
-    }
-
     @After
     public void tearDown() {
         if (user.getAccessToken() != null) {
-            deleteUser(user);
+            apiSteps.deleteUserApi(user);
         }
     }
-
 }
