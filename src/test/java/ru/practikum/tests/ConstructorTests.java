@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import ru.practikum.pages.MainPageConstructor;
 
+import static org.junit.Assert.assertTrue;
+
 public class ConstructorTests {
     @Rule
     public DriverFactory driverFactory = new DriverFactory();
@@ -30,7 +32,7 @@ public class ConstructorTests {
         mainPageObj.waitLoadingTabSauces();
         mainPageObj.clickTabBuns();
         mainPageObj.waitLoadingTabBuns();
-        mainPageObj.checkIfSectionBunsIsActive();
+        assertTrue("Вкладка 'Булки' неактивна", mainPageObj.checkIfSectionBunsIsActive());
     }
 
     @Test
@@ -39,7 +41,7 @@ public class ConstructorTests {
     public void goToSectionSaucesTest() throws InterruptedException {
         mainPageObj.clickTabSauces();
         mainPageObj.waitLoadingTabSauces();
-        mainPageObj.checkIfSectionSaucesIsActive();
+        assertTrue("Вкладка 'Соусы' неактивна", mainPageObj.checkIfSectionSaucesIsActive());
     }
 
     @Test
@@ -48,6 +50,6 @@ public class ConstructorTests {
     public void goToSectionFillingsTest() throws InterruptedException {
         mainPageObj.clickTabFillings();
         mainPageObj.waitLoadingTabFillings();
-        mainPageObj.checkIfSectionFillingsIsActive();
+        assertTrue("Вкладка 'Соусы' неактивна", mainPageObj.checkIfSectionFillingsIsActive());
     }
 }

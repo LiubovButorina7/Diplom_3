@@ -8,8 +8,6 @@ import ru.practikum.util.Constants;
 import static io.restassured.RestAssured.given;
 
 public class UserApiSteps {
-    User user;
-
     @Step("Set registration data api")
     public void setRegistrationDataApi(User user, String email, String password, String name) {
         user.setEmail(email + "@test.ru");
@@ -17,12 +15,19 @@ public class UserApiSteps {
         user.setName(name);
     }
 
+    @Step("Set login data api")
+    public void setLoginDataApi(User user, String email, String password) {
+        user.setEmail(email);
+        user.setPassword(password);
+    }
+
     @Step("Set user access token api")
     public void setAccessTokenApi(User user, ValidatableResponse response) {
         String userAccessToken = response.extract().body().path("accessToken");
         user.setAccessToken(userAccessToken);
     }
-    @Step("Register a new user ")
+
+    @Step("Register a new user via api")
     public ValidatableResponse registerUserApi(User user) {
         return given()
                 .body(user)
@@ -31,7 +36,7 @@ public class UserApiSteps {
                 .then();
     }
 
-    @Step("Send POST request to /api/auth/login")
+    @Step("Login a user via api")
     public ValidatableResponse loginUserApi(User user) {
         return given()
                 .body(user)
@@ -40,7 +45,7 @@ public class UserApiSteps {
                 .then();
     }
 
-    @Step("Delete a user")
+    @Step("Delete a user via api")
     public void deleteUserApi(User user) {
         given()
                 .header("Authorization", user.getAccessToken())

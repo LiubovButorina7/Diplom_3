@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.practikum.util.Constants;
 import java.time.Duration;
 
-
 public class RegisterPage {
     protected final WebDriver driver;
 
@@ -56,13 +55,15 @@ public class RegisterPage {
         clickRegisterButton();
     }
 
+    @Step("Wait until error message will be visible in Register Page")
+    public void waitLoadingErrorMessage() {
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.visibilityOfElementLocated(passwordFieldError));
+    }
+
     @Step("Check error message under password field in Register Page")
-    public void checkErrorMessageIsDisplayed() {
-        try {
-            new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.visibilityOfElementLocated(passwordFieldError));
-        } catch (Exception e) {
-            throw new RuntimeException("Элемент с сообщением об ошибке в поле 'Пароль' не найден: " + e.getMessage());
-        }
+    public boolean checkErrorMessageIsDisplayed() {
+        waitLoadingErrorMessage();
+        return driver.findElement(passwordFieldError).isDisplayed();
     }
 
     @Step("Click on Login Button in Register Page")

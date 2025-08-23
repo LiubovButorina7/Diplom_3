@@ -7,11 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.practikum.util.Constants;
-
 import java.time.Duration;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class MainPageConstructor {
     protected final WebDriver driver;
@@ -19,9 +15,9 @@ public class MainPageConstructor {
     private final By loginAccountButton = By.xpath(".//button[text() = 'Войти в аккаунт']");
     private final By personalAccountButton = By.xpath(".//p[text() = 'Личный Кабинет']");
     private final By sectionConstructor = By.cssSelector(".BurgerIngredients_ingredients__menuContainer__Xu3Mo");
-    private final By tabBuns = By.xpath(".//span[text() = 'Булки']/parent::div");
-    private final By tabSauces = By.xpath(".//span[text() = 'Соусы']/parent::div");
-    private final By tabFillings = By.xpath(".//span[text() = 'Начинки']/parent::div");
+    private final By tabBuns = By.xpath(".//div/span[text() = 'Булки']/parent::div");
+    private final By tabSauces = By.xpath(".//div/span[text() = 'Соусы']/parent::div");
+    private final By tabFillings = By.xpath(".//div/span[text() = 'Начинки']/parent::div");
 
     public MainPageConstructor(WebDriver driver) {
         this.driver = driver;
@@ -58,51 +54,51 @@ public class MainPageConstructor {
     }
 
     @Step("Check Buns Section Activity")
-    public void checkIfSectionBunsIsActive() {
+    public boolean checkIfSectionBunsIsActive() {
         WebElement element = driver.findElement(tabBuns);
         String attribute = element.getAttribute("class");
-        assertTrue("Вкладка 'Булки' неактивна", attribute.contains("tab_tab_type_current__2BEPc"));
+        return attribute.contains("tab_tab_type_current__2BEPc");
     }
 
     @Step("Check Sauces Section Activity")
-    public void checkIfSectionSaucesIsActive() {
+    public boolean checkIfSectionSaucesIsActive() {
         WebElement element = driver.findElement(tabSauces);
         String attribute = element.getAttribute("class");
-        assertTrue("Вкладка 'Соусы' неактивна", attribute.contains("tab_tab_type_current__2BEPc"));
+        return attribute.contains("tab_tab_type_current__2BEPc");
     }
 
     @Step("Check Fillings Section Activity")
-    public void checkIfSectionFillingsIsActive() {
+    public boolean checkIfSectionFillingsIsActive() {
         WebElement element = driver.findElement(tabFillings);
         String attribute = element.getAttribute("class");
-        assertTrue("Вкладка 'Начинки' неактивна", attribute.contains("tab_tab_type_current__2BEPc"));
+        return attribute.contains("tab_tab_type_current__2BEPc");
     }
 
     @Step("Wait until Main Page will be loaded")
     public void waitLoadingMainPage() {
         new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS))
-                .until(ExpectedConditions.urlToBe(Constants.RESOURCE_URL));
+                         .until(ExpectedConditions.urlToBe(Constants.RESOURCE_URL));
     }
 
     @Step("Wait until tab Buns will be active")
     public void waitLoadingTabBuns() {
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.attributeContains(tabBuns, "class","tab_tab_type_current__2BEPc"));
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.attributeContains(tabBuns, "class","tab_tab_type_current__2BEPc"));
     }
 
     @Step("Wait until tab Sauces will be active")
     public void waitLoadingTabSauces() {
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.attributeContains(tabSauces, "class", "tab_tab_type_current__2BEPc"));
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.attributeContains(tabSauces, "class", "tab_tab_type_current__2BEPc"));
     }
 
     @Step("Wait until tab Fillings will be active")
     public void waitLoadingTabFillings() {
-        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.attributeContains(tabFillings, "class", "tab_tab_type_current__2BEPc"));
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.attributeContains(tabFillings, "class", "tab_tab_type_current__2BEPc"));
     }
 
     @Step("Check if Main Page is displayed")
-    public void checkMainPageIsDisplayed() {
+    public String checkMainPageIsDisplayed() {
         waitLoadingMainPage();
-        assertEquals("Ожидаемый URL главной страницы не совпадает с текущим", Constants.RESOURCE_URL, driver.getCurrentUrl());
+        return driver.getCurrentUrl();
     }
 
     @Step("Wait until section Constructor will be visible & clickable")

@@ -24,13 +24,15 @@ public class LoginPage {
         driver.get(Constants.RESOURCE_URL_LOGIN);
     }
 
-    @Step("Check is Login Button displayed in Login Page")
-    public void checkLoginButtonIsDisplayed() {
-        try {
-            new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.visibilityOfElementLocated(loginButton));
-        } catch (Exception e) {
-            throw new RuntimeException("Кнопка 'Войти' не найдена на странице Login Page: " + e.getMessage());
-        }
+    @Step("Wait until Login Button will be visible")
+    public void waitLoadingLoginButton() {
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.WAITING_SECONDS)).until(ExpectedConditions.visibilityOfElementLocated(loginButton));
+    }
+
+    @Step("Check if Login Button is displayed in Login Page")
+    public boolean checkLoginButtonIsDisplayed() {
+        waitLoadingLoginButton();
+        return driver.findElement(loginButton).isDisplayed();
     }
 
     @Step("Login a user in Login Page")

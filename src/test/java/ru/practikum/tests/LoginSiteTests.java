@@ -15,6 +15,8 @@ import ru.practikum.pages.ForgotPasswordPage;
 import ru.practikum.pages.LoginPage;
 import ru.practikum.pages.MainPageConstructor;
 import ru.practikum.pages.RegisterPage;
+import ru.practikum.util.Constants;
+import static org.junit.Assert.assertEquals;
 
 public class LoginSiteTests extends BaseTest{
     @Rule
@@ -44,7 +46,7 @@ public class LoginSiteTests extends BaseTest{
         mainPageObj.clickLoginAccountButton();
         LoginPage loginPageObj = new LoginPage(driver);
         loginPageObj.loginUser(user.getEmail(), user.getPassword());
-        mainPageObj.checkMainPageIsDisplayed();
+        assertEquals("Ожидаемый URL главной страницы не совпадает с текущим", Constants.RESOURCE_URL, mainPageObj.checkMainPageIsDisplayed());
     }
 
     @Test
@@ -56,7 +58,7 @@ public class LoginSiteTests extends BaseTest{
         mainPageObj.clickPersonalAccountButton();
         LoginPage loginPageObj = new LoginPage(driver);
         loginPageObj.loginUser(user.getEmail(), user.getPassword());
-        mainPageObj.checkMainPageIsDisplayed();
+        assertEquals("Ожидаемый URL главной страницы не совпадает с текущим", Constants.RESOURCE_URL, mainPageObj.checkMainPageIsDisplayed());
     }
 
     @Test
@@ -69,7 +71,7 @@ public class LoginSiteTests extends BaseTest{
         LoginPage loginPageObj = new LoginPage(driver);
         loginPageObj.loginUser(user.getEmail(), user.getPassword());
         MainPageConstructor mainPageObj = new MainPageConstructor(driver);
-        mainPageObj.checkMainPageIsDisplayed();
+        assertEquals("Ожидаемый URL главной страницы не совпадает с текущим", Constants.RESOURCE_URL, mainPageObj.checkMainPageIsDisplayed());
     }
 
     @Test
@@ -83,7 +85,7 @@ public class LoginSiteTests extends BaseTest{
         forgotPasswordPageObj.clickLoginButton();
         loginPageObj.loginUser(user.getEmail(), user.getPassword());
         MainPageConstructor mainPageObj = new MainPageConstructor(driver);
-        mainPageObj.checkMainPageIsDisplayed();
+        assertEquals("Ожидаемый URL главной страницы не совпадает с текущим", Constants.RESOURCE_URL, mainPageObj.checkMainPageIsDisplayed());
     }
 
     @After

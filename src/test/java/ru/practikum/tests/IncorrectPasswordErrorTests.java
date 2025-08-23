@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import ru.practikum.pages.RegisterPage;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class IncorrectPasswordErrorTests extends BaseTest{
@@ -45,6 +46,6 @@ public class IncorrectPasswordErrorTests extends BaseTest{
         RegisterPage registerPageObj = new RegisterPage(driver);
         registerPageObj.openRegisterPage();
         registerPageObj.registerUser(userName, email, password);
-        registerPageObj.checkErrorMessageIsDisplayed();
+        assertTrue("Элемент с сообщением об ошибке в поле 'Пароль' не найден", registerPageObj.checkErrorMessageIsDisplayed());
     }
 }

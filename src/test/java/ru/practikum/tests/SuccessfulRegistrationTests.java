@@ -14,6 +14,7 @@ import ru.practikum.models.User;
 import ru.practikum.pages.LoginPage;
 import ru.practikum.pages.RegisterPage;
 import org.apache.commons.lang3.RandomStringUtils;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class SuccessfulRegistrationTests extends BaseTest{
@@ -49,7 +50,7 @@ public class SuccessfulRegistrationTests extends BaseTest{
         driver = driverFactory.getDriver();
         apiSteps = new UserApiSteps();
         user = new User();
-        apiSteps.setRegistrationDataApi(user, email, password, userName);
+        apiSteps.setLoginDataApi(user, email, password);
     }
 
     @Test
@@ -63,7 +64,7 @@ public class SuccessfulRegistrationTests extends BaseTest{
         apiSteps.setAccessTokenApi(user, response);
 
         LoginPage loginPageObj = new LoginPage(driver);
-        loginPageObj.checkLoginButtonIsDisplayed();
+        assertTrue("Кнопка 'Войти' не найдена на странице Login Page", loginPageObj.checkLoginButtonIsDisplayed());
     }
 
     @After
